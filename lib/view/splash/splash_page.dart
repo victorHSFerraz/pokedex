@@ -18,6 +18,7 @@ class SplashPage extends StatelessWidget {
       ),
       child: Scaffold(
         body: Container(
+          width: double.infinity,
           padding: EdgeInsets.symmetric(horizontal: 30),
           color: Theme.of(context).primaryColor,
           child: Column(
