@@ -4,7 +4,7 @@ import 'package:victor_flutter/components/constants.dart';
 
 class SplashController extends GetxController {
   SplashController() {
-    Future.delayed(Duration(seconds: 30), () {
+    Future.delayed(Duration(seconds: 3), () {
       checkAccount();
     });
   }
@@ -15,7 +15,7 @@ class SplashController extends GetxController {
     if (hasAccount == true) {
       Get.offAllNamed('/home');
     } else {
-      Get.offAllNamed('/login');
+      Get.offAllNamed('/home');
     }
   }
 }
