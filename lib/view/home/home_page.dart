@@ -21,9 +21,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3), () {
-      controller.isLoading = false;
-    });
   }
 
   Widget _buildSkeleton() {
@@ -61,16 +58,19 @@ class _HomePageState extends State<HomePage> {
           crossAxisCount: 2,
           childAspectRatio: 1.3,
         ),
-        itemCount: 6,
+        itemCount: controller.categoriesList.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: index % 2 == 0
                 ? EdgeInsets.only(left: 14.0, right: 10)
                 : EdgeInsets.only(right: 14.0, left: 10),
             child: InkWell(
+              borderRadius: BorderRadius.all(Radius.circular(3.0)),
+              splashFactory: InkRipple.splashFactory,
+              splashColor: AppColors.secondary,
               onTap: () {},
               child: Card(
-                elevation: 1,
+                elevation: 5,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(3.0),
                 ),
@@ -87,27 +87,33 @@ class _HomePageState extends State<HomePage> {
   }
 
   cardItens(int index) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(child: Icon(Icons.airplanemode_active)),
-        Padding(
-          padding: EdgeInsets.all(6.0),
-          child: Text("TEXT HERE"),
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.all(6.0),
+        child: Text(
+          "${controller.categoriesList[index][0]}".capitalize,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            color: AppColors.red,
+          ),
         ),
-      ],
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.grey,
       key: _scaffoldKey,
       body: NestedScrollView(
         controller: ScrollController(initialScrollOffset: 40.0 - 140.0),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
+              elevation: 20,
+              forceElevated: true,
               backgroundColor: AppColors.primary,
               expandedHeight: 140.0,
               floating: false,
@@ -145,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                             PopupMenuButton(
                               enableFeedback: true,
                               shape: TooltipShape(),
-                              offset: Offset(-4, 30),
+                              offset: Offset(-5, 31),
                               itemBuilder: (BuildContext context) {
                                 return PopMenuItens.choices
                                     .map((String choice) {
@@ -259,7 +265,7 @@ class _HomePageState extends State<HomePage> {
         body: Obx(
           () {
             var loading = controller.isLoadingRx.value;
-            if (loading) {
+            if (loading || controller.categoriesList.isEmpty) {
               return _buildSkeleton();
             } else {
               return _buildGrid();

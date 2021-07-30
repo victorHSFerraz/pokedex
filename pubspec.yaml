@@ -18,6 +18,8 @@ dependencies:
   shared_preferences:
   cached_network_image:
   flutter_svg:
+  dartz:
+  connectivity:
 
 
 
