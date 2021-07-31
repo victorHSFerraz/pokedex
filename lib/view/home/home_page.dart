@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisCount: 2,
           childAspectRatio: 1.3,
         ),
-        itemCount: 6,
+        itemCount: 8,
         itemBuilder: (context, index) {
           return Padding(
             padding: index % 2 == 0

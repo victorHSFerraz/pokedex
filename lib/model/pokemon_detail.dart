@@ -390,7 +390,7 @@ class Other {
 
 class DreamWorld {
   String frontDefault;
-  Null frontFemale;
+  String frontFemale;
 
   DreamWorld({this.frontDefault, this.frontFemale});
 

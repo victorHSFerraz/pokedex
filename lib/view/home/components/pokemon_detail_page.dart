@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/string_extensions.dart';
 import 'package:victor_flutter/helpers/assets.dart';
 import 'package:victor_flutter/helpers/colors.dart';
 import 'package:victor_flutter/model/pokemon_detail.dart';
@@ -25,9 +26,17 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
     } else if (type == "water") {
       return Colors.blueAccent;
     } else if (type == "electric") {
-      return Colors.yellow;
+      return AppColors.yellow;
     } else if (type == "bug") {
       return Colors.lightGreen;
+    } else if (type == "poison") {
+      return Colors.deepPurpleAccent;
+    } else if (type == "fighting") {
+      return Colors.brown[400];
+    } else if (type == "ghost") {
+      return Colors.deepPurple[400];
+    } else if (type == "rock") {
+      return Colors.brown[100];
     } else {
       return Colors.white70;
     }
@@ -212,7 +221,7 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white30,
@@ -221,13 +230,103 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                   ),
                 ),
                 width: double.infinity,
-                height: 500,
-                child: Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Container()],
+                child: Stack(
+                  children: [
+                    Container(
+                        height: 280,
+                        child: Column(
+                          children: [],
+                        )),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        width: 180,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: getTypeColor(
+                              widget.pokemonDetail.types[0].type.name),
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(12),
+                            bottomLeft: Radius.circular(12),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Estatísticas base",
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white30,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(12),
                   ),
+                ),
+                width: double.infinity,
+                child: Stack(
+                  children: [
+                    Container(
+                      height: 280,
+                      child: Scrollbar(
+                        thickness: 10,
+                        child: ListView.builder(
+                          itemCount: widget.pokemonDetail.gameIndices.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              padding: EdgeInsets.fromLTRB(20, 8, 8, 8),
+                              child: Text(
+                                "Pokémon: ${widget.pokemonDetail.gameIndices[index].version.name.capitalize}",
+                                style: TextStyle(
+                                  color: AppColors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w300,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        width: 180,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: getTypeColor(
+                              widget.pokemonDetail.types[0].type.name),
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(12),
+                            bottomLeft: Radius.circular(12),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Aparições nos Games",
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
