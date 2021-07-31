@@ -15,6 +15,24 @@ class PokemonDetailPage extends StatefulWidget {
 class _PokemonDetailPageState extends State<PokemonDetailPage> {
   List images = [];
 
+  Color getTypeColor(String type) {
+    if (type == "grass") {
+      return Colors.green;
+    } else if (type == "normal") {
+      return Colors.grey;
+    } else if (type == "fire") {
+      return AppColors.red;
+    } else if (type == "water") {
+      return Colors.blueAccent;
+    } else if (type == "electric") {
+      return Colors.yellow;
+    } else if (type == "bug") {
+      return Colors.lightGreen;
+    } else {
+      return Colors.white70;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +52,7 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
               padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
               child: Container(
                 decoration: BoxDecoration(
-                  color: AppColors.red,
+                  color: getTypeColor(widget.pokemonDetail.types[0].type.name),
                   borderRadius: BorderRadius.all(
                     Radius.circular(12),
                   ),
