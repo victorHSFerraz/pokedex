@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:victor_flutter/components/constants.dart';
+import 'package:victor_flutter/helpers/constants.dart';
 
 class SplashController extends GetxController {
   SplashController() {

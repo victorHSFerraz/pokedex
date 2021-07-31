@@ -1,21 +1,20 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:get/get.dart';
-import 'package:victor_flutter/model/categories.dart';
-import 'package:victor_flutter/model/starships.dart';
+import 'package:victor_flutter/helpers/constants.dart';
+import 'package:victor_flutter/model/pokemon.dart';
+import 'package:victor_flutter/model/pokemon_detail.dart';
 import 'package:victor_flutter/service/error_handler/error_handler.dart';
 import 'package:victor_flutter/service/service.dart';
 
 class HomeController extends GetxController {
   HomeController() {
-    getCategories();
+    getPokemons();
   }
   Service service = Service();
 
-  Starships starships = Starships();
+  Pokemon pokemon = Pokemon();
 
-  Categories categories = Categories();
-
-  List categoriesList = [];
+  PokemonDetail pokemonDetail = PokemonDetail();
 
   final _isLoading = true.obs;
 
@@ -23,16 +22,13 @@ class HomeController extends GetxController {
 
   set isLoading(bool value) => _isLoading.value = value;
 
-  Future getCategories() async {
+  Future getPokemons() async {
     isLoading = true;
     if (await Connectivity().checkConnectivity() != ConnectivityResult.none) {
-      await service.getCategories().then((res) {
+      await service.getPokemons().then((res) {
         var decodedResponse = res.fold((error) => error, (val) => val);
-        if (decodedResponse is Categories) {
-          Map<String, dynamic> categoriesMap = decodedResponse.toJson();
-          categoriesMap.forEach((key, value) {
-            categoriesList.add([key, value]);
-          });
+        if (decodedResponse is Pokemon) {
+          this.pokemon = decodedResponse;
         } else if (decodedResponse is ErrorHandler) {
           ErrorHandler error = decodedResponse;
 
@@ -51,13 +47,15 @@ class HomeController extends GetxController {
     isLoading = false;
   }
 
-  Future getAllStarships() async {
-    isLoading = true;
+  Future<bool> getPokemonDetail(String url) async {
+    bool result = false;
+    var finalUrl = url.replaceAll(Constants.baseUrl, "");
     if (await Connectivity().checkConnectivity() != ConnectivityResult.none) {
-      await service.getAllStarships().then((res) {
+      await service.getPokemonDetail(finalUrl).then((res) {
         var decodedResponse = res.fold((error) => error, (val) => val);
-        if (decodedResponse is Starships) {
-          this.starships = decodedResponse;
+        if (decodedResponse is PokemonDetail) {
+          this.pokemonDetail = decodedResponse;
+          result = true;
         } else if (decodedResponse is ErrorHandler) {
           ErrorHandler error = decodedResponse;
 
@@ -73,6 +71,6 @@ class HomeController extends GetxController {
     } else {
       print("NO CONNECTION");
     }
-    isLoading = false;
+    return result;
   }
 }

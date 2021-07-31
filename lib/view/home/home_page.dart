@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skeletons/skeletons.dart';
-import 'package:victor_flutter/components/colors.dart';
 import 'package:victor_flutter/controller/home_controller.dart';
+import 'package:victor_flutter/helpers/colors.dart';
+import 'package:victor_flutter/view/home/components/pokemon_detail_page.dart';
 
 import 'components/arrow_clipper.dart';
 import 'components/pop_menu_itens.dart';
@@ -58,7 +59,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisCount: 2,
           childAspectRatio: 1.3,
         ),
-        itemCount: controller.categoriesList.length,
+        itemCount: controller.pokemon.results.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: index % 2 == 0
@@ -68,7 +69,22 @@ class _HomePageState extends State<HomePage> {
               borderRadius: BorderRadius.all(Radius.circular(3.0)),
               splashFactory: InkRipple.splashFactory,
               splashColor: AppColors.secondary,
-              onTap: () {},
+              onTap: () async {
+                await controller
+                    .getPokemonDetail(controller.pokemon.results[index].url)
+                    .then(
+                      (value) => {
+                        if (value == true)
+                          {
+                            Get.to(
+                              () => PokemonDetailPage(
+                                pokemonDetail: controller.pokemonDetail,
+                              ),
+                            )
+                          },
+                      },
+                    );
+              },
               child: Card(
                 elevation: 5,
                 shape: RoundedRectangleBorder(
@@ -91,7 +107,7 @@ class _HomePageState extends State<HomePage> {
       child: Padding(
         padding: EdgeInsets.all(6.0),
         child: Text(
-          "${controller.categoriesList[index][0]}".capitalize,
+          "${controller.pokemon.results[index].name}".capitalize,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16,
@@ -129,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                             RichText(
                               textAlign: TextAlign.left,
                               text: TextSpan(
-                                text: "STAR WARS - API",
+                                text: "POKÉMONS - API",
                                 style: TextStyle(
                                   color: AppColors.secondary,
                                   fontSize: 16,
@@ -265,7 +281,7 @@ class _HomePageState extends State<HomePage> {
         body: Obx(
           () {
             var loading = controller.isLoadingRx.value;
-            if (loading || controller.categoriesList.isEmpty) {
+            if (loading || controller.pokemon == null) {
               return _buildSkeleton();
             } else {
               return _buildGrid();

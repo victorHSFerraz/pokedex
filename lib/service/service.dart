@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:victor_flutter/components/constants.dart';
-import 'package:victor_flutter/model/categories.dart';
-import 'package:victor_flutter/model/starships.dart';
+import 'package:victor_flutter/helpers/constants.dart';
+import 'package:victor_flutter/model/pokemon.dart';
+import 'package:victor_flutter/model/pokemon_detail.dart';
 
 import 'error_handler/error_handler.dart';
 
@@ -20,12 +20,12 @@ class Service {
     ),
   );
 
-  Future<Either<ErrorHandler, Categories>> getCategories() async {
+  Future<Either<ErrorHandler, Pokemon>> getPokemons() async {
     try {
-      Response response = await dio.get("");
+      Response response = await dio.get("pokemon?limit=100&offset=0");
       if (response.statusCode == 200) {
-        Categories categories = Categories.fromJson(response.data);
-        return Right(categories);
+        Pokemon pokemon = Pokemon.fromJson(response.data);
+        return Right(pokemon);
       } else {
         final Map<String, dynamic> decodedMessage =
             json.decode(response.toString());
@@ -37,12 +37,13 @@ class Service {
     }
   }
 
-  Future<Either<ErrorHandler, Starships>> getAllStarships() async {
+  Future<Either<ErrorHandler, PokemonDetail>> getPokemonDetail(
+      String url) async {
     try {
-      Response response = await dio.get("/starships");
+      Response response = await dio.get(url);
       if (response.statusCode == 200) {
-        Starships starships = Starships.fromJson(response.data);
-        return Right(starships);
+        PokemonDetail pokemon = PokemonDetail.fromJson(response.data);
+        return Right(pokemon);
       } else {
         final Map<String, dynamic> decodedMessage =
             json.decode(response.toString());

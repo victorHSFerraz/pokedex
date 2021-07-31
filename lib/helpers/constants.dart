@@ -3,5 +3,5 @@ class Constants {
 
   static final int connectTimeout = 25000;
   static final int receiveTimeout = 15000;
-  static final String baseUrl = "https://swapi.dev/api/";
+  static final String baseUrl = "https://pokeapi.co/api/v2/";
 }
