@@ -181,11 +181,12 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: "\nVictor Henrique",
+                                    text: "\nby Victor Ferraz",
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w300,
+                                      fontStyle: FontStyle.italic,
                                     ),
                                   )
                                 ],
@@ -290,7 +291,7 @@ class _HomePageState extends State<HomePage> {
                     : FlexibleSpaceBar(
                         centerTitle: false,
                         title: Text(
-                          "Home",
+                          "Pokémons",
                           style: TextStyle(
                             color: AppColors.secondary,
                             fontSize: 18,
