@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:victor_flutter/controller/home_controller.dart';
+import 'package:victor_flutter/helpers/assets.dart';
 import 'package:victor_flutter/helpers/colors.dart';
 import 'package:victor_flutter/view/home/components/pokemon_detail_page.dart';
 
@@ -22,6 +23,22 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+  }
+
+  showLoading() {
+    return Dialog(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(height: 8),
+            Text('Aguarde...'),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _buildSkeleton() {
@@ -70,18 +87,29 @@ class _HomePageState extends State<HomePage> {
               splashFactory: InkRipple.splashFactory,
               splashColor: AppColors.secondary,
               onTap: () async {
+                BuildContext dialogContext;
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (_) {
+                      dialogContext = context;
+                      return showLoading();
+                    });
                 await controller
                     .getPokemonDetail(controller.pokemon.results[index].url)
                     .then(
                       (value) => {
                         if (value == true)
                           {
+                            Navigator.pop(dialogContext),
                             Get.to(
                               () => PokemonDetailPage(
                                 pokemonDetail: controller.pokemonDetail,
                               ),
                             )
-                          },
+                          }
+                        else
+                          {Navigator.pop(dialogContext)},
                       },
                     );
               },
@@ -167,7 +195,7 @@ class _HomePageState extends State<HomePage> {
                             PopupMenuButton(
                               enableFeedback: true,
                               shape: TooltipShape(),
-                              offset: Offset(-5, 31),
+                              offset: Offset(-10, 42),
                               itemBuilder: (BuildContext context) {
                                 return PopMenuItens.choices
                                     .map((String choice) {
@@ -244,12 +272,11 @@ class _HomePageState extends State<HomePage> {
                               },
                               child: Container(
                                 child: CircleAvatar(
-                                  radius: 19,
+                                  radius: 25,
                                   backgroundColor: AppColors.red,
-                                  child: Icon(
-                                    Icons.account_circle,
+                                  child: Image.asset(
+                                    Assets.pokeball,
                                     color: Colors.white,
-                                    size: 38,
                                   ),
                                 ),
                               ),
