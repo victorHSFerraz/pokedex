@@ -233,10 +233,76 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                 child: Stack(
                   children: [
                     Container(
-                        height: 280,
-                        child: Column(
-                          children: [],
-                        )),
+                      padding: EdgeInsets.fromLTRB(20, 20, 10, 10),
+                      height: 280,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              if (widget.pokemonDetail.types.length == 1)
+                                Container(
+                                  padding: EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                    color: getTypeColor(widget
+                                        .pokemonDetail.types[0].type.name),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(12),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "${widget.pokemonDetail.types[0].type.name.capitalize}",
+                                    style: TextStyle(
+                                      color: AppColors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              if (widget.pokemonDetail.types.length > 1)
+                                Container(
+                                  padding: EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                    color: getTypeColor(widget
+                                        .pokemonDetail.types[0].type.name),
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(12),
+                                      bottomLeft: Radius.circular(12),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "${widget.pokemonDetail.types[0].type.name.capitalize}",
+                                    style: TextStyle(
+                                      color: AppColors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              if (widget.pokemonDetail.types.length > 1)
+                                Container(
+                                  padding: EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                    color: getTypeColor(widget
+                                        .pokemonDetail.types[1].type.name),
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(12),
+                                      bottomRight: Radius.circular(12),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "${widget.pokemonDetail.types[1].type.name.capitalize}",
+                                    style: TextStyle(
+                                      color: AppColors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
                     Align(
                       alignment: Alignment.topRight,
                       child: Container(
