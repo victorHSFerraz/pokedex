@@ -20,9 +20,9 @@ class Service {
     ),
   );
 
-  Future<Either<ErrorHandler, Pokemon>> getPokemons() async {
+  Future<Either<ErrorHandler, Pokemon>> getPokemons(int offset) async {
     try {
-      Response response = await dio.get("pokemon?limit=100&offset=0");
+      Response response = await dio.get("pokemon?limit=100&offset=$offset");
       if (response.statusCode == 200) {
         Pokemon pokemon = Pokemon.fromJson(response.data);
         return Right(pokemon);

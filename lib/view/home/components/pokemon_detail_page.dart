@@ -45,10 +45,16 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
   ScrollController _scrollController = ScrollController();
 
   _scrollToBottom() async {
-    await Future.delayed(Duration(milliseconds: 1400), () {
+    await Future.delayed(Duration(milliseconds: 1900), () {
       _scrollController.animateTo(_scrollController.position.maxScrollExtent,
           duration: Duration(seconds: 14), curve: Curves.easeOut);
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
   }
 
   @override
@@ -112,32 +118,6 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                     controller: _scrollController,
                     scrollDirection: Axis.horizontal,
                     children: [
-                      if (widget.pokemonDetail.sprites.other.officialArtwork
-                              .frontDefault !=
-                          null)
-                        CachedNetworkImage(
-                          imageUrl: widget.pokemonDetail.sprites.other
-                              .officialArtwork.frontDefault,
-                          fit: BoxFit.fill,
-                          placeholder: (context, url) => Container(
-                            width: 160,
-                            child: Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                          ),
-                          errorWidget: (context, url, error) => Container(
-                            child: Padding(
-                              padding: const EdgeInsets.all(50.0),
-                              child: Tooltip(
-                                message: 'Erro ao carregar imagem',
-                                child: Image.asset(
-                                  Assets.error,
-                                  color: AppColors.red,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
                       if (widget.pokemonDetail.sprites.frontDefault != null)
                         CachedNetworkImage(
                           imageUrl: widget.pokemonDetail.sprites.frontDefault,
@@ -210,6 +190,32 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                       if (widget.pokemonDetail.sprites.backShiny != null)
                         CachedNetworkImage(
                           imageUrl: widget.pokemonDetail.sprites.backShiny,
+                          fit: BoxFit.fill,
+                          placeholder: (context, url) => Container(
+                            width: 160,
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => Container(
+                            child: Padding(
+                              padding: const EdgeInsets.all(50.0),
+                              child: Tooltip(
+                                message: 'Erro ao carregar imagem',
+                                child: Image.asset(
+                                  Assets.error,
+                                  color: AppColors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      if (widget.pokemonDetail.sprites.other.officialArtwork
+                              .frontDefault !=
+                          null)
+                        CachedNetworkImage(
+                          imageUrl: widget.pokemonDetail.sprites.other
+                              .officialArtwork.frontDefault,
                           fit: BoxFit.fill,
                           placeholder: (context, url) => Container(
                             width: 160,
@@ -391,29 +397,41 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                   width: double.infinity,
                   child: Stack(
                     children: [
-                      Container(
-                        height: 280,
-                        child: Scrollbar(
-                          thickness: 10,
-                          child: ListView.builder(
-                            itemCount: widget.pokemonDetail.gameIndices.length,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                padding: EdgeInsets.fromLTRB(20, 8, 8, 8),
-                                child: Text(
-                                  "Pokémon: ${widget.pokemonDetail.gameIndices[index].version.name.capitalize}",
-                                  style: TextStyle(
-                                    color: AppColors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w300,
-                                    fontStyle: FontStyle.italic,
+                      if (widget.pokemonDetail.gameIndices.length != 0)
+                        Container(
+                          height: 280,
+                          child: Scrollbar(
+                            thickness: 10,
+                            child: ListView.builder(
+                              itemCount:
+                                  widget.pokemonDetail.gameIndices.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  padding: EdgeInsets.fromLTRB(20, 8, 8, 8),
+                                  child: Text(
+                                    "Pokémon: ${widget.pokemonDetail.gameIndices[index].version.name.capitalize}",
+                                    style: TextStyle(
+                                      color: AppColors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w300,
+                                      fontStyle: FontStyle.italic,
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
+                                );
+                              },
+                            ),
                           ),
                         ),
-                      ),
+                      if (widget.pokemonDetail.gameIndices.length == 0)
+                        Container(
+                          height: 280,
+                          child: Center(
+                            child: Text(
+                              "Nehuma",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
                       Align(
                         alignment: Alignment.topRight,
                         child: Container(

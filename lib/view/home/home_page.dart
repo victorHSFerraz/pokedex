@@ -151,171 +151,228 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: AppColors.grey,
       key: _scaffoldKey,
-      body: NestedScrollView(
-        controller: ScrollController(initialScrollOffset: 40.0 - 140.0),
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              elevation: 20,
-              forceElevated: true,
-              backgroundColor: AppColors.primary,
-              expandedHeight: 140.0,
-              floating: false,
-              pinned: true,
-              flexibleSpace: LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                var height = constraints.biggest.height;
-                return height > 90
-                    ? FlexibleSpaceBar(
-                        centerTitle: false,
-                        title: Row(
-                          children: [
-                            RichText(
-                              textAlign: TextAlign.left,
-                              text: TextSpan(
-                                text: "POKÉMONS - API",
-                                style: TextStyle(
-                                  color: AppColors.secondary,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: "\nby Victor Ferraz",
+      body: Stack(
+        children: [
+          NestedScrollView(
+            controller: ScrollController(initialScrollOffset: 40.0 - 140.0),
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverAppBar(
+                  elevation: 20,
+                  forceElevated: true,
+                  backgroundColor: AppColors.primary,
+                  expandedHeight: 140.0,
+                  floating: false,
+                  pinned: true,
+                  flexibleSpace: LayoutBuilder(builder:
+                      (BuildContext context, BoxConstraints constraints) {
+                    var height = constraints.biggest.height;
+                    return height > 90
+                        ? FlexibleSpaceBar(
+                            centerTitle: false,
+                            title: Row(
+                              children: [
+                                RichText(
+                                  textAlign: TextAlign.left,
+                                  text: TextSpan(
+                                    text: "POKÉMONS - API",
                                     style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w300,
-                                      fontStyle: FontStyle.italic,
+                                      color: AppColors.secondary,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            PopupMenuButton(
-                              enableFeedback: true,
-                              shape: TooltipShape(),
-                              offset: Offset(-10, 42),
-                              itemBuilder: (BuildContext context) {
-                                return PopMenuItens.choices
-                                    .map((String choice) {
-                                  return PopupMenuItem<String>(
-                                    value: choice,
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.only(right: 15, left: 15),
-                                      child: Row(
-                                        children: [
-                                          if (PopMenuItens.FirstItem == choice)
-                                            Card(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(30.0),
-                                              ),
-                                              color: AppColors.secondary,
-                                              elevation: 2,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(4.0),
-                                                child: Icon(
-                                                  Icons.account_circle,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                          if (PopMenuItens.SecondItem == choice)
-                                            Card(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(30.0),
-                                              ),
-                                              color: AppColors.secondary,
-                                              elevation: 2,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(4.0),
-                                                child: Icon(
-                                                  Icons.settings,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                          if (PopMenuItens.ThirdItem == choice)
-                                            Card(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(30.0),
-                                              ),
-                                              color: AppColors.secondary,
-                                              elevation: 2,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(4.0),
-                                                child: Icon(
-                                                  Icons.logout,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                          SizedBox(width: 10),
-                                          Text(
-                                            choice,
-                                            style: TextStyle(
-                                                color: Colors.black87,
-                                                fontSize: 16),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                }).toList();
-                              },
-                              child: Container(
-                                child: CircleAvatar(
-                                  radius: 25,
-                                  backgroundColor: AppColors.red,
-                                  child: Image.asset(
-                                    Assets.pokeball,
-                                    color: Colors.white,
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text: "\nby Victor Ferraz",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w300,
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
+                                SizedBox(width: 10),
+                                PopupMenuButton(
+                                  enableFeedback: true,
+                                  shape: TooltipShape(),
+                                  offset: Offset(-10, 42),
+                                  itemBuilder: (BuildContext context) {
+                                    return PopMenuItens.choices
+                                        .map((String choice) {
+                                      return PopupMenuItem<String>(
+                                        value: choice,
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                              right: 15, left: 15),
+                                          child: Row(
+                                            children: [
+                                              if (PopMenuItens.FirstItem ==
+                                                  choice)
+                                                Card(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30.0),
+                                                  ),
+                                                  color: AppColors.secondary,
+                                                  elevation: 2,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            4.0),
+                                                    child: Icon(
+                                                      Icons.account_circle,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                              if (PopMenuItens.SecondItem ==
+                                                  choice)
+                                                Card(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30.0),
+                                                  ),
+                                                  color: AppColors.secondary,
+                                                  elevation: 2,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            4.0),
+                                                    child: Icon(
+                                                      Icons.settings,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                              if (PopMenuItens.ThirdItem ==
+                                                  choice)
+                                                Card(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30.0),
+                                                  ),
+                                                  color: AppColors.secondary,
+                                                  elevation: 2,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            4.0),
+                                                    child: Icon(
+                                                      Icons.logout,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                              SizedBox(width: 10),
+                                              Text(
+                                                choice,
+                                                style: TextStyle(
+                                                    color: Colors.black87,
+                                                    fontSize: 16),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }).toList();
+                                  },
+                                  child: Container(
+                                    child: CircleAvatar(
+                                      radius: 25,
+                                      backgroundColor: AppColors.red,
+                                      child: Image.asset(
+                                        Assets.pokeball,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            background: Material(
+                              color: AppColors.primary,
+                            ),
+                          )
+                        : FlexibleSpaceBar(
+                            centerTitle: false,
+                            title: Text(
+                              "Pokémons",
+                              style: TextStyle(
+                                color: AppColors.secondary,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ],
-                        ),
-                        background: Material(
-                          color: AppColors.primary,
-                        ),
-                      )
-                    : FlexibleSpaceBar(
-                        centerTitle: false,
-                        title: Text(
-                          "Pokémons",
-                          style: TextStyle(
-                            color: AppColors.secondary,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        background: Material(
-                          color: AppColors.secondary,
-                        ),
-                      );
-              }),
+                            background: Material(
+                              color: AppColors.secondary,
+                            ),
+                          );
+                  }),
+                ),
+              ];
+            },
+            body: Obx(
+              () {
+                var loading = controller.isLoadingRx.value;
+                if (loading || controller.pokemon == null) {
+                  return _buildSkeleton();
+                } else {
+                  return _buildGrid();
+                }
+              },
             ),
-          ];
-        },
-        body: Obx(
-          () {
-            var loading = controller.isLoadingRx.value;
-            if (loading || controller.pokemon == null) {
-              return _buildSkeleton();
-            } else {
-              return _buildGrid();
-            }
-          },
-        ),
+          ),
+          Obx(() {
+            return controller.offsetRx.value != 100
+                ? Positioned(
+                    bottom: 15,
+                    left: 15,
+                    child: FloatingActionButton(
+                      onPressed: () {
+                        if (controller.isLoadingRx.value == false &&
+                            controller.offsetRx.value != 100) {
+                          controller
+                              .getPokemons(controller.offsetRx.value - 200);
+                          controller.offset = controller.offsetRx.value - 200;
+                        }
+                      },
+                      child: Icon(
+                        Icons.arrow_left,
+                        size: 40,
+                      ),
+                    ),
+                  )
+                : Container();
+          }),
+          Obx(() {
+            return controller.offsetRx.value < controller.pokemon.count
+                ? Positioned(
+                    bottom: 15,
+                    right: 15,
+                    child: FloatingActionButton(
+                      onPressed: () {
+                        if (controller.isLoadingRx.value == false &&
+                            controller.offsetRx.value <
+                                controller.pokemon.count) {
+                          controller.getPokemons(controller.offsetRx.value);
+                        }
+                      },
+                      child: Icon(
+                        Icons.arrow_right,
+                        size: 40,
+                      ),
+                    ),
+                  )
+                : Container();
+          }),
+        ],
       ),
     );
   }

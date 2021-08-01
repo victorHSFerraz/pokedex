@@ -8,7 +8,7 @@ import 'package:victor_flutter/service/service.dart';
 
 class HomeController extends GetxController {
   HomeController() {
-    getPokemons();
+    getPokemons(0);
   }
   Service service = Service();
 
@@ -16,19 +16,27 @@ class HomeController extends GetxController {
 
   PokemonDetail pokemonDetail = PokemonDetail();
 
+  final _offset = 0.obs;
+
+  RxInt get offsetRx => _offset;
+
+  set offset(int value) => _offset.value = value;
+
   final _isLoading = true.obs;
 
   RxBool get isLoadingRx => _isLoading;
 
   set isLoading(bool value) => _isLoading.value = value;
 
-  Future getPokemons() async {
+  Future getPokemons(int offset) async {
     isLoading = true;
     if (await Connectivity().checkConnectivity() != ConnectivityResult.none) {
-      await service.getPokemons().then((res) {
+      await service.getPokemons(offset).then((res) {
         var decodedResponse = res.fold((error) => error, (val) => val);
         if (decodedResponse is Pokemon) {
           this.pokemon = decodedResponse;
+          var newOffset = 100;
+          offsetRx.value = offsetRx.value + newOffset;
         } else if (decodedResponse is ErrorHandler) {
           ErrorHandler error = decodedResponse;
 
