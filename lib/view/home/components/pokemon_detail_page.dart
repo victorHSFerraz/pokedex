@@ -272,9 +272,9 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                                     child: Text(
                                       "${widget.pokemonDetail.types[0].type.name.capitalize}",
                                       style: TextStyle(
-                                        color: AppColors.white,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white70,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w300,
                                       ),
                                     ),
                                   ),
@@ -292,9 +292,9 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                                     child: Text(
                                       "${widget.pokemonDetail.types[0].type.name.capitalize}",
                                       style: TextStyle(
-                                        color: AppColors.white,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white70,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w300,
                                       ),
                                     ),
                                   ),
@@ -312,9 +312,9 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                                     child: Text(
                                       "${widget.pokemonDetail.types[1].type.name.capitalize}",
                                       style: TextStyle(
-                                        color: AppColors.white,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white70,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w300,
                                       ),
                                     ),
                                   ),
@@ -375,7 +375,8 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                               style: TextStyle(
                                 color: AppColors.white,
                                 fontSize: 14,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w900,
+                                fontStyle: FontStyle.italic,
                               ),
                             ),
                           ),
@@ -451,7 +452,8 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                               style: TextStyle(
                                 color: AppColors.white,
                                 fontSize: 14,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w900,
+                                fontStyle: FontStyle.italic,
                               ),
                             ),
                           ),

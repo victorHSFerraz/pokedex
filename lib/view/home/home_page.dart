@@ -334,7 +334,7 @@ class _HomePageState extends State<HomePage> {
             if (loading) {
               return Positioned(
                 bottom: 15,
-                left: 15,
+                left: 5,
                 child: FloatingActionButton(
                   onPressed: () {},
                   child: Icon(
@@ -347,7 +347,7 @@ class _HomePageState extends State<HomePage> {
               return controller.offsetRx.value != 100
                   ? Positioned(
                       bottom: 15,
-                      left: 15,
+                      left: 5,
                       child: FloatingActionButton(
                         onPressed: () {
                           if (controller.isLoadingRx.value == false &&
@@ -371,7 +371,7 @@ class _HomePageState extends State<HomePage> {
             if (loading) {
               return Positioned(
                 bottom: 15,
-                right: 15,
+                right: 5,
                 child: FloatingActionButton(
                   onPressed: () {},
                   child: Icon(
@@ -385,7 +385,7 @@ class _HomePageState extends State<HomePage> {
                       !controller.isLoadingRx.value
                   ? Positioned(
                       bottom: 15,
-                      right: 15,
+                      right: 5,
                       child: FloatingActionButton(
                         onPressed: () {
                           if (controller.isLoadingRx.value == false &&
