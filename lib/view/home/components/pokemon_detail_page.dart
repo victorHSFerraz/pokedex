@@ -37,6 +37,10 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
       return Colors.deepPurple[400];
     } else if (type == "rock") {
       return Colors.brown[100];
+    } else if (type == "psychic") {
+      return Colors.pinkAccent;
+    } else if (type == "fairy") {
+      return Colors.purple[200];
     } else {
       return Colors.white70;
     }
