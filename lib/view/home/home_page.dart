@@ -1,9 +1,13 @@
+import 'dart:async';
+
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:victor_flutter/controller/home_controller.dart';
 import 'package:victor_flutter/helpers/assets.dart';
 import 'package:victor_flutter/helpers/colors.dart';
+import 'package:victor_flutter/mixins/network_notification.dart';
 import 'package:victor_flutter/view/home/components/pokemon_detail_page.dart';
 
 import 'components/arrow_clipper.dart';
@@ -16,13 +20,36 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with NetworkNotification {
   final HomeController controller = Get.put(HomeController());
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  StreamSubscription subscription;
 
   @override
   void initState() {
     super.initState();
+    subscription =
+        Connectivity().onConnectivityChanged.listen(showConnectivitySnackBar);
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+
+    super.dispose();
+  }
+
+  void showConnectivitySnackBar(ConnectivityResult result) {
+    final hasInternet = result != ConnectivityResult.none;
+    final message = hasInternet
+        ? 'Conectado. Com Internet.'
+        : 'Você está offline. Verifique sua conexão.';
+    final color = hasInternet ? Colors.green : Colors.red;
+
+    showTopSnackBar(context, message, color);
+    if (hasInternet) {
+      controller.getPokemons(controller.offsetRx.value ?? 0);
+    }
   }
 
   showLoading() {
@@ -78,6 +105,7 @@ class _HomePageState extends State<HomePage> {
         ),
         itemCount: controller.pokemon.results.length,
         itemBuilder: (context, index) {
+          controller.pokemon.results.sort((a, b) => a.name.compareTo(b.name));
           return Padding(
             padding: index % 2 == 0
                 ? EdgeInsets.only(left: 14.0, right: 10)
@@ -321,7 +349,7 @@ class _HomePageState extends State<HomePage> {
             body: Obx(
               () {
                 var loading = controller.isLoadingRx.value;
-                if (loading || controller.pokemon == null) {
+                if (loading || controller.pokemon.results == null) {
                   return _buildSkeleton();
                 } else {
                   return _buildGrid();
@@ -331,7 +359,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Obx(() {
             var loading = controller.isLoadingRx.value;
-            if (loading) {
+            if (loading || controller.pokemon.results == null) {
               return Positioned(
                 bottom: 15,
                 left: 5,
@@ -368,7 +396,7 @@ class _HomePageState extends State<HomePage> {
           }),
           Obx(() {
             var loading = controller.isLoadingRx.value;
-            if (loading) {
+            if (loading || controller.pokemon.results == null) {
               return Positioned(
                 bottom: 15,
                 right: 5,

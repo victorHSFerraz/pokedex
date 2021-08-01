@@ -7,9 +7,6 @@ import 'package:victor_flutter/service/error_handler/error_handler.dart';
 import 'package:victor_flutter/service/service.dart';
 
 class HomeController extends GetxController {
-  HomeController() {
-    getPokemons(0);
-  }
   Service service = Service();
 
   Pokemon pokemon = Pokemon();

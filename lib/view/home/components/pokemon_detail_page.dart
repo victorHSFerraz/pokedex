@@ -50,8 +50,10 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
 
   _scrollToBottom() async {
     await Future.delayed(Duration(milliseconds: 1900), () {
-      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-          duration: Duration(seconds: 14), curve: Curves.easeOut);
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+            duration: Duration(seconds: 14), curve: Curves.easeOut);
+      }
     });
   }
 
