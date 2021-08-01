@@ -330,47 +330,78 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Obx(() {
-            return controller.offsetRx.value != 100
-                ? Positioned(
-                    bottom: 15,
-                    left: 15,
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        if (controller.isLoadingRx.value == false &&
-                            controller.offsetRx.value != 100) {
-                          controller
-                              .getPokemons(controller.offsetRx.value - 200);
-                          controller.offset = controller.offsetRx.value - 200;
-                        }
-                      },
-                      child: Icon(
-                        Icons.arrow_left,
-                        size: 40,
+            var loading = controller.isLoadingRx.value;
+            if (loading) {
+              return Positioned(
+                bottom: 15,
+                left: 15,
+                child: FloatingActionButton(
+                  onPressed: () {},
+                  child: Icon(
+                    Icons.arrow_left,
+                    size: 40,
+                  ),
+                ),
+              );
+            } else {
+              return controller.offsetRx.value != 100
+                  ? Positioned(
+                      bottom: 15,
+                      left: 15,
+                      child: FloatingActionButton(
+                        onPressed: () {
+                          if (controller.isLoadingRx.value == false &&
+                              controller.offsetRx.value != 100) {
+                            controller
+                                .getPokemons(controller.offsetRx.value - 200);
+                            controller.offset = controller.offsetRx.value - 200;
+                          }
+                        },
+                        child: Icon(
+                          Icons.arrow_left,
+                          size: 40,
+                        ),
                       ),
-                    ),
-                  )
-                : Container();
+                    )
+                  : Container();
+            }
           }),
           Obx(() {
-            return controller.offsetRx.value < controller.pokemon.count
-                ? Positioned(
-                    bottom: 15,
-                    right: 15,
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        if (controller.isLoadingRx.value == false &&
-                            controller.offsetRx.value <
-                                controller.pokemon.count) {
-                          controller.getPokemons(controller.offsetRx.value);
-                        }
-                      },
-                      child: Icon(
-                        Icons.arrow_right,
-                        size: 40,
+            var loading = controller.isLoadingRx.value;
+            if (loading) {
+              return Positioned(
+                bottom: 15,
+                right: 15,
+                child: FloatingActionButton(
+                  onPressed: () {},
+                  child: Icon(
+                    Icons.arrow_right,
+                    size: 40,
+                  ),
+                ),
+              );
+            } else {
+              return controller.offsetRx.value < controller.pokemon.count &&
+                      !controller.isLoadingRx.value
+                  ? Positioned(
+                      bottom: 15,
+                      right: 15,
+                      child: FloatingActionButton(
+                        onPressed: () {
+                          if (controller.isLoadingRx.value == false &&
+                              controller.offsetRx.value <
+                                  controller.pokemon.count) {
+                            controller.getPokemons(controller.offsetRx.value);
+                          }
+                        },
+                        child: Icon(
+                          Icons.arrow_right,
+                          size: 40,
+                        ),
                       ),
-                    ),
-                  )
-                : Container();
+                    )
+                  : Container();
+            }
           }),
         ],
       ),
