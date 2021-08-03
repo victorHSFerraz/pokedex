@@ -434,7 +434,7 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                           height: 280,
                           child: Center(
                             child: Text(
-                              "Nehuma",
+                              "Nenhuma",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ),

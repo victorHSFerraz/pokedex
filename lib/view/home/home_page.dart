@@ -228,6 +228,9 @@ class _HomePageState extends State<HomePage> with NetworkNotification {
                                   enableFeedback: true,
                                   shape: TooltipShape(),
                                   offset: Offset(-10, 42),
+                                  onSelected: (val) {
+                                    Get.toNamed('/locations');
+                                  },
                                   itemBuilder: (BuildContext context) {
                                     return PopMenuItens.choices
                                         .map((String choice) {
@@ -253,47 +256,7 @@ class _HomePageState extends State<HomePage> with NetworkNotification {
                                                         const EdgeInsets.all(
                                                             4.0),
                                                     child: Icon(
-                                                      Icons.account_circle,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                ),
-                                              if (PopMenuItens.SecondItem ==
-                                                  choice)
-                                                Card(
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30.0),
-                                                  ),
-                                                  color: AppColors.secondary,
-                                                  elevation: 2,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            4.0),
-                                                    child: Icon(
-                                                      Icons.settings,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                ),
-                                              if (PopMenuItens.ThirdItem ==
-                                                  choice)
-                                                Card(
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30.0),
-                                                  ),
-                                                  color: AppColors.secondary,
-                                                  elevation: 2,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            4.0),
-                                                    child: Icon(
-                                                      Icons.logout,
+                                                      Icons.location_pin,
                                                       color: Colors.white,
                                                     ),
                                                   ),
