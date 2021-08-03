@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:victor_flutter/controller/home_controller.dart';
 import 'package:victor_flutter/helpers/colors.dart';
 import 'package:victor_flutter/model/location_detail.dart';
+import 'package:victor_flutter/view/home/components/pokemon_detail_page.dart';
 
 class LocationDetailPage extends StatefulWidget {
   final LocationDetail locationDetail;
@@ -11,6 +14,24 @@ class LocationDetailPage extends StatefulWidget {
 }
 
 class _LocationDetailPageState extends State<LocationDetailPage> {
+  final HomeController controller = Get.put(HomeController());
+
+  showLoading() {
+    return Dialog(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(height: 8),
+            Text('Aguarde...'),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,12 +98,46 @@ class _LocationDetailPageState extends State<LocationDetailPage> {
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding: EdgeInsets.fromLTRB(20, 8, 8, 8),
-                                  child: Text(
-                                    "${widget.locationDetail.pokemonEncounters[index].pokemon.name.replaceAll("-", " ").toUpperCase()}",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      color: AppColors.white,
-                                      fontStyle: FontStyle.italic,
+                                  child: InkWell(
+                                    onTap: () async {
+                                      BuildContext dialogContext;
+                                      showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (_) {
+                                            dialogContext = context;
+                                            return showLoading();
+                                          });
+                                      await controller
+                                          .getPokemonDetail(widget
+                                              .locationDetail
+                                              .pokemonEncounters[index]
+                                              .pokemon
+                                              .url)
+                                          .then(
+                                            (value) => {
+                                              if (value == true)
+                                                {
+                                                  Navigator.pop(dialogContext),
+                                                  Get.to(
+                                                    () => PokemonDetailPage(
+                                                      pokemonDetail: controller
+                                                          .pokemonDetail,
+                                                    ),
+                                                  )
+                                                }
+                                              else
+                                                {Navigator.pop(dialogContext)},
+                                            },
+                                          );
+                                    },
+                                    child: Text(
+                                      "${widget.locationDetail.pokemonEncounters[index].pokemon.name.replaceAll("-", " ").toUpperCase()}",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        color: AppColors.white,
+                                        fontStyle: FontStyle.italic,
+                                      ),
                                     ),
                                   ),
                                 );
