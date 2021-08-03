@@ -33,7 +33,12 @@ dev_dependencies:
     sdk: flutter
   moor_generator:
   build_runner:
+  flutter_native_splash:
 
+flutter_native_splash:
+  image: assets/img/splash.png
+  color:  "F2F2F8"
+  android_disable_fullscreen: true
 
 flutter:
 
