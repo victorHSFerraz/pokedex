@@ -327,6 +327,7 @@ class _HomePageState extends State<HomePage> with NetworkNotification {
                 bottom: 15,
                 left: 5,
                 child: FloatingActionButton(
+                  heroTag: "back",
                   onPressed: () {},
                   child: Icon(
                     Icons.arrow_left,
@@ -340,6 +341,7 @@ class _HomePageState extends State<HomePage> with NetworkNotification {
                       bottom: 15,
                       left: 5,
                       child: FloatingActionButton(
+                        heroTag: "back-action",
                         onPressed: () {
                           if (controller.isLoadingRx.value == false &&
                               controller.offsetRx.value != 100) {
@@ -364,6 +366,7 @@ class _HomePageState extends State<HomePage> with NetworkNotification {
                 bottom: 15,
                 right: 5,
                 child: FloatingActionButton(
+                  heroTag: "next",
                   onPressed: () {},
                   child: Icon(
                     Icons.arrow_right,
@@ -378,6 +381,7 @@ class _HomePageState extends State<HomePage> with NetworkNotification {
                       bottom: 15,
                       right: 5,
                       child: FloatingActionButton(
+                        heroTag: "next-action",
                         onPressed: () {
                           if (controller.isLoadingRx.value == false &&
                               controller.offsetRx.value <

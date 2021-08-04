@@ -181,6 +181,7 @@ class _LocationsPageState extends State<LocationsPage> {
               bottom: 15,
               left: 5,
               child: FloatingActionButton(
+                heroTag: "back-location",
                 onPressed: () {},
                 child: Icon(
                   Icons.arrow_left,
@@ -194,6 +195,7 @@ class _LocationsPageState extends State<LocationsPage> {
                     bottom: 15,
                     left: 5,
                     child: FloatingActionButton(
+                      heroTag: "back-location-action",
                       onPressed: () {
                         if (controller.isLoadingRx.value == false &&
                             controller.offsetRx.value != 100) {
@@ -218,6 +220,7 @@ class _LocationsPageState extends State<LocationsPage> {
               bottom: 15,
               right: 5,
               child: FloatingActionButton(
+                heroTag: "next-location",
                 onPressed: () {},
                 child: Icon(
                   Icons.arrow_right,
@@ -232,6 +235,7 @@ class _LocationsPageState extends State<LocationsPage> {
                     bottom: 15,
                     right: 5,
                     child: FloatingActionButton(
+                      heroTag: "next-location-action",
                       onPressed: () {
                         if (controller.isLoadingRx.value == false &&
                             controller.offsetRx.value <
