@@ -1,7 +1,5 @@
 # victor_flutter
 
-Projeto de estudo
-
 <h1 align="center">
   <br>
   <img src="https://pa1.narvii.com/6225/27e87e12a1f6ccdc3b3ff216b22ce7d0ae40c179_hq.gif" alt="Snorlax" height="375" width="500">
@@ -9,7 +7,7 @@ Projeto de estudo
   <br><br>
 </h1>
 
-<p align="center">Antes de começar, você vai precisar ter instalado em sua máquina a versão 2.0.3 do Flutter.</p>
+<p align="center">Antes de começar, você precisar ter instalado em sua máquina a versão 2.0 do Flutter.</p>
 
 <p align="center">
   <kbd>
